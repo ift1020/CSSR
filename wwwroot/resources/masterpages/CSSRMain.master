@@ -1,0 +1,318 @@
+﻿<%@ Master Language="VB" CodeFile="CSSRMain.master.vb" Inherits="resources_masterpages_cssrmain" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title><%=DealerDirect.Resources.getString("LITERAL_GM_Dealer_Direct")%></title>
+
+    <asp:ContentPlaceHolder id="MasterStylesAndScripts" runat="server" />
+    
+    <script type="text/javascript"> if (!window.console) console = {log: function() {}}; </script>
+    
+    <!-- Material Design Icons -->
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Include Font Awesome. -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+
+    <!-- Basic Styles -->
+	<link rel="stylesheet" type="text/css" media="screen" href="/resources/mdb/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/resources/mdb/css/compiled.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <!-- SmartAdmin Styles : Caution! DO NOT change the order -->
+	<link rel="stylesheet" type="text/css" media="screen,print" href="/resources/dashboard/css/smartadmin-production-plugins.min.css">
+	<link rel="stylesheet" type="text/css" media="screen,print" href="/resources/dashboard/css/smartadmin-production.min.css">
+	<link rel="stylesheet" type="text/css" media="screen,print" href="/resources/dashboard/css/smartadmin-skins.min.css">
+
+    <!-- Customized Styles -->
+    <link rel="stylesheet" type="text/css" media="screen,projection,print" href="/resources/StyleSheets/dd-menu.css?_v=2.0.0">
+    <link rel="stylesheet" type="text/css" media="screen,projection,print" href="/resources/StyleSheets/cssr/cssr-master.css?_=<%=Date.Now.Ticks.ToString()">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+        <script>
+            (function(){
+              var ef = function(){};
+              window.console = window.console || {log:ef,warn:ef,error:ef,dir:ef};
+            }());
+        </script>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        script src="https://cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
+	<![endif]-->
+
+    <!-- Basic Javascripts -->
+    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script>
+		if (!window.jQuery) {
+			document.write('<script src="/resources/dashboard/js/libs/jquery-2.1.1.min.js"><\/script>');
+		}
+	</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script>
+        if (!window.angular) {
+            document.write('<script src="/resources/scripts/vendor/angular.min.js"><\/script>');
+        }
+	</script>
+
+    <!-- IMPORTANT: APP CONFIG -->
+	<script src="/resources/dashboard/js/app.config.js"></script>
+	<script src="/resources/dashboard/js/app.min.js"></script>
+
+    <!-- BOOTSTRAP JS -->
+	<script src="/resources/mdb/js/bootstrap.min.js"></script>
+    <script src="/resources/mdb/js/mdb.min.js"></script>
+
+    <!-- 3rd JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Customized JS -->
+    <script src="/resources/scripts/base64.min.js"></script>
+    <script src="/resources/scripts/html2canvas.min.js?ver=0.5.0"></script>
+    <script src="/resources/scripts/dealerdirect.js?_=<%=Date.Now.Ticks.ToString()%>"></script>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- #HEADER -->
+		<header id="header">           
+           <div id="dd-logo">
+	          <a id="logo-container" href="/" class="brand-logo" onclick="navigateTo('/default.aspx')">
+	              <% If DealerDirect.Security.CurrentSession.Language.ToLower.ToString() = "en" Then%>
+	                <img src="/resources/images/controls/general/pageheaderfooter/dd_logo_en.jpg">
+	              <% Else %>
+	                <img src="/resources/images/controls/general/pageheaderfooter/dd_logo_fr.jpg">
+	              <% End If %>
+	          </a>
+	       </div> 
+
+            <!-- main meun -->
+	  		<div id="dvMenu">
+	  			<label for="show-menu" class="show-menu">Menu</label>
+    			<input type="checkbox" id="show-menu" role="button">
+    			
+  				<div class="tbl-center">
+  					<div id="head-banner" >
+	                    <b><a href="/user/user.aspx" data-ajax="false" class="PageHeaderLink"><%=DealerDirect.Security.CurrentSession.User.DisplayName%></a> @ <a href="/user/dealer.aspx" data-ajax="false" class="PageHeaderLink"><%=DealerDirect.Security.CurrentSession.SecurityContext.WorkSpace.Name%></a></b>
+		                <%
+			                If DealerDirect.Security.CurrentSession.User.DefaultWorkspace.ID = 80000 Or _
+				                DealerDirect.Security.CurrentSession.User.DefaultWorkspace.ID > 89999 Then
+				                If Session("CM2:ISUSERINGROUP:PRIV_CHANGE_WORKSPACE") Is Nothing Then
+					                Session("CM2:ISUSERINGROUP:PRIV_CHANGE_WORKSPACE") = DealerDirect.Security.CurrentSession.SecurityContext.isUserInGroup("priv_change_workspace")
+				                End If
+				                If Session("CM2:ISUSERINGROUP:PRIV_CHANGE_WORKSPACE") Then
+					                %>
+					                (<a href="/user/changews.aspx" class="PageHeaderLink"><%=DealerDirect.Resources.GetString("LITERAL_Change")%></a>)
+					                <%
+				                End If
+			                End If
+		                %>
+                        (<a href="/site/auth.aspx" class="PageFooterLink"><%=DealerDirect.Resources.getString("LITERAL_Logout")%></a>)
+					</div>
+					
+  					<ul id="menu"></ul>
+  				</div>
+	  		</div>
+        </header>    
+		
+		<!-- END HEADER -->
+
+		<!-- #NAVIGATION -->
+		<!-- Left panel : Navigation area -->
+		<!-- Note: This width of the aside area can be adjusted through LESS/SASS variables -->
+		<aside id="left-panel" class="bgcolor-1">
+		    <nav>
+                <div id="cssr-logo">
+                    <!-- <i class="fa fa-lg fa-fw fa-exclamation-circle uncheck"></i> -->
+                    <span class="fa-lg fa-stack" style="margin-left: -55px; height: 1.3em; line-height: 1.3em">
+                		<i class="fa fa-circle fa-stack-1x uncheck" style="font-size: 1.5em"></i>
+                		<i class="fa fa-exclamation fa-stack-1x fa-inverse" style="font-size: 1em"></i>
+                	</span>
+                </div>
+                <ul>
+                    <li id="tnTab" style="background-color: #aaa; margin-top: -5px; display: none">
+                        <a href="#left-pane" onclick="toggleNavbar(event)" data-toggle="shrink" title="<%=DealerDirect.Resources.getString("DD:LEFTMENU:TOGGLE")%>" style="white-space: nowrap; padding-top: 6px; display: inline-flex; align-items: center; height: 33px">
+                            <i class="fa fa-lg fa-arrow-circle-o-left"></i>
+                            <span style="margin-left: 13px"><%=DealerDirect.Resources.getString("DD:LEFTMENU:TOGGLE")%></span>
+                        </a>
+                    </li>
+
+                    <li>
+						<a id="menu-cardsview" href="#Descriptions" onclick="showCSSRCardView(); return false;" style="margin-top: 20px" title="View all CSSR cards">
+                            <i class="fa fa-lg fa-fw fa-th"></i>
+                            <span class="menu-item-parent"><%=DealerDirect.Resources.getString("CSSR:MENU:All_Cards")%></span></a>
+					</li>
+
+                    <hr />
+                    <div id="menu-list">
+					<%--<li>
+						<a id="menu-201" href="" onclick="showPanes(1); return false" title="Welcome (New)">
+                            <i class="fa fa-lg fa-fw fa-exclamation-circle uncheck"></i>
+                            <span class="menu-item-parent">Welcome (New)</span></a>
+					</li>
+					<li>
+						<a id="menu-209" href="" onclick="showPanes(2); return false" title="Welcome (Pre-Owned/Certified)">
+                            <i class="fa fa-lg fa-fw fa-exclamation-circle uncheck"></i>
+                            <span class="menu-item-parent">Welcome (Pre-Owned/Certified)</span></a>
+					</li>
+                    <li>
+						<a id="menu-202" href="" onclick="showPanes(3); return false" title="Service Reminders & Winback">
+                            <i class="fa fa-lg fa-fw fa-exclamation-circle uncheck"></i>
+                            <span class="menu-item-parent">Service Reminders & Winback</span></a>
+					</li>
+                    <li>
+						<a id="menu-303" href="" onclick="showPanes(10); return false" title="After Service Thank You (2017)">
+                            <i class="fa fa-lg fa-fw fa-exclamation-circle uncheck"></i>
+                            <span class="menu-item-parent">After Service Thank You (2017)</span></a>
+					</li>
+                    <li>
+						<a id="menu-203" href="" onclick="showPanes(4); return false" title="After Service Thank You">
+                            <i class="fa fa-lg fa-fw fa-exclamation-circle uncheck"></i>
+                            <span class="menu-item-parent">After Service Thank You</span></a>
+					</li>
+                    <li>
+						<a id="menu-204" href="" onclick="showPanes(5); return false" title="Anniversary">
+                            <i class="fa fa-lg fa-fw fa-exclamation-circle uncheck"></i>
+                            <span class="menu-item-parent">Anniversary</span></a>
+					</li>
+                    <li>
+						<a id="menu-205" href="" onclick="showPanes(6); return false" title="DEX-COOL">
+                            <i class="fa fa-lg fa-fw fa-exclamation-circle uncheck"></i>
+                            <span class="menu-item-parent">DEX-COOL</span></a>
+					</li>
+                    <li>
+						<a id="menu-206" href="" onclick="showPanes(7); return false" title="End of Warranty">
+                            <i class="fa fa-lg fa-fw fa-exclamation-circle uncheck"></i> 
+                            <span class="menu-item-parent">End of Warranty</span></a>
+					</li>
+                    <li>
+						<a id="menu-207" href="" onclick="showPanes(8); return false" title="Lease End">
+                            <i class="fa fa-lg fa-fw fa-exclamation-circle uncheck"></i>
+                            <span class="menu-item-parent">Lease End</span></a>
+					</li>
+                    <li>
+						<a id="menu-208" href="" onclick="showPanes(9); return false" title="Finance & Cash">
+                            <i class="fa fa-lg fa-fw fa-exclamation-circle uncheck"></i>
+                            <span class="menu-item-parent">Finance & Cash</span></a>
+					</li>--%>
+                    </div>
+                    <hr />
+                    <li>
+						<a href="/cm/contentmanagement/training.aspx" style="margin-top: 20px" title="Training Material">
+                            <i class="fa fa-lg fa-fw fa-support"></i>
+                            <span class="menu-item-parent"><%=DealerDirect.Resources.getString("CSSR:MENU:Training_Material")%></span></a>
+					</li>
+                    <li>
+						<a id="menu-cssrdoc" href="#Documentation" onclick="showCSSRDocument(); return false;" title="CSSR Documentation">
+                            <i class="fa fa-lg fa-fw fa-gears"></i>
+                            <span class="menu-item-parent"><%=DealerDirect.Resources.getString("CSSR:MENU:CSSR_Documentation")%></span></a>
+					</li>
+				</ul>
+			</nav>
+
+		</aside>
+		<!-- END NAVIGATION -->
+		
+		<!-- #MAIN PANEL -->
+		<div id="main" role="main">
+			<!-- #MAIN CONTENT -->
+			<div id="content">
+				<asp:contentplaceholder ID="MasterContent" runat="server"></asp:contentplaceholder>
+				<div class="clearfix"></div>
+			</div>
+			
+			<!-- END #MAIN CONTENT -->
+		    <div class="clearfix"></div>
+		</div>
+		<!-- END #MAIN PANEL -->
+
+		<!-- #PAGE FOOTER -->
+		<div class="page-footer" style="display: none">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<span id="textOnFooter" class="txt-color-white">Dealer Direct <span class="hidden-xs"> - Web Application Framework</span> &#169; 2015</span>
+				</div>
+			</div>
+		</div>
+		<!-- END FOOTER -->
+
+        <iframe id="iframe1" height="0" runat="server" width="0" style="visibility: hidden;" src ="/admin/Site/Timer.aspx" ></iframe> 
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            if (!window.atob) window.atob = base64.decode;
+            if (!window.btoa) window.btoa = base64.encode;
+
+            var menuJsonString = <%=getSessionMenu()%>;
+            var menuJsonObj = JSON.parse(dealerdirect.decode_utf8(window.atob(menuJsonString)));
+            dealerdirect.createMenufromJson(menuJsonObj);
+            menuJsonString = "";
+            menuJsonObj = null;
+
+            if ($('.show-menu').is(':visible')) {
+                $('#dvMenu li a').on('click', function () {
+                	var isOpen = false;
+                	if ($(this).next().is(':visible')) isOpen = true;
+                	$('#menu li .to-hide').hide();
+                    if (!isOpen) $(this).next().show();
+                });
+                $('#menu li:first-child a').trigger('click');
+            }
+
+            var userLang = "<% =DealerDirect.Security.CurrentSession.Language.ToUpper %>";
+
+            $('#left-panel').hover(
+                function () { 
+                    var w = $(this).width();
+                    if (userLang === "EN") {
+                        if (w > 50 && w < 300) $(this).css({ width: "300px" });
+                    }
+                    else {
+                        if (w > 50 && w < 365)  {
+                            $(this).css({ width: "365px" });
+                        }
+                    }
+                },
+                function () { 
+                    $(this).css({ width: "300px" }); 
+                }
+            );
+
+            if (userLang === "FR") {
+
+            }
+
+        });
+
+        function showCSSRCardView() {
+            //var url = "/site/CSSR/default.aspx?_cv=" + window.btoa(dealerdirect.encode_utf8("true"));
+            //window.location = url;
+            $('#left-panel > nav > ul li > a > span').css({ "border-bottom": "0" });
+            $('#menu-cardsview > span').css({ "border-bottom": "2px solid #FFF" });
+            $('.pane-content').hide();
+            $('#cardsview').show();
+        }
+
+        function showCSSRDocument() {
+            $('#left-panel > nav > ul li > a > span').css({ "border-bottom": "0" });
+            $('#menu-cssrdoc > span').css({ "border-bottom": "2px solid #FFF" });
+            $('.pane-content').hide();
+            $('#cssrDocument').show();
+        }
+
+        function toggleNavbar(e) {
+            e = $.event.fix(e);
+            e.preventDefault();
+            e.stopPropagation();
+
+            $('#left-panel').toggleClass('shrink');
+        }
+	</script>
+</body>
+</html>

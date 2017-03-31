@@ -1,0 +1,463 @@
+﻿.inactive {
+    color: #af3d42;
+}
+
+i.check {
+    color: #53a639; 
+}
+
+i.uncheck {
+    color: #d6d75a;
+}
+
+.fa-stack {
+	height: 1em;
+	line-height: 1em;
+}
+
+#master-container {
+    margin-top: 80px; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    position: fixed; 
+    overflow-y: auto;
+    transition: all .2s ease-in-out;
+    background-color: #FAFAFA;
+}
+
+.rightPane-inner {
+    margin-left: 300px;
+    word-break: break-all;
+    transition: all .25s ease-in-out;
+}
+#left-panel.shrink ~ #main > div#content > #master-container >  .right-pane > .rightPane-inner {
+    margin-left: 50px;
+}
+
+.pane-content {
+    display: none;
+}
+
+#cssr-logo {
+    background: url('/resources/images/cssr/cssr-logo_en_white_180.png') no-repeat;
+    background-size: 150px;
+    height: 30px;
+    margin: 0px 35px 9px 70px;
+    transition: all .25s ease-in-out;
+}
+#left-panel.shrink > nav > div#cssr-logo {
+    margin: 0px 5px 9px 6px;
+}
+
+#cssr-logo > i {
+    margin-left: -47px;
+    margin-top: 6px;
+    font-size: 1.5em;
+}
+
+.header {
+    width: 100%; 
+    background-color: #5397f0; 
+    padding: 0 20px;
+    height: 44px; 
+    line-height: 44px;
+}
+
+.header > i {
+    font-size: 1.5em;
+    color: #FFF;
+}
+.header > img {
+    width: 30px; 
+    margin-top: -3px; 
+    margin-right: 5px;
+}
+.header > span {
+    color: #FFF;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.row-tabs {
+    width: 100%; 
+    display: inline-flex; 
+    padding: 8px 40px;
+}
+
+.activate-button {
+    font-weight: 600;
+    font-size: 1em;
+    border: 0px;
+    box-shadow: 2px 3px 3px rgba(34, 25, 25, 0.2);
+    border-radius: 4px;
+    padding: 4px 8px;
+    min-width: 100px;
+    color: #FFF;
+    width: 110px;
+    background-color: #01A453 !important;
+    margin-left: 30px;
+}
+.activate-button:hover {
+    background-color: #01A453 !important;
+}
+
+.tab-option {
+    color: #5397f0;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin: 0 20px;
+    padding: 3px 0px;
+}
+.tab-option > span.icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: red;
+    border-radius: 50%;
+}
+.tab-option > i {
+    /*margin-left: 6px;*/
+}
+
+.tab-option:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.offer-card {
+    margin: 0 25px 20px; 
+    border-radius: 5px;
+    visibility: hidden;
+}
+
+#cardsview > .col-full {
+    padding: 10px 10px;
+}
+
+#cssrDocument > .col-full {
+    font-size: 1em;
+    padding: 5px 10px;
+    color: #23619C;
+    width: 900px;
+    word-break: keep-all;
+    /*box-shadow: 0px 0px 2px 1px rgba(34, 25, 25, 0.4);*/
+    margin: 20px;
+}
+
+.offer-card > .cardBar {
+    width: 960px;
+    height: 5px;
+    /*margin: 5px auto;*/
+    background-color: #5397f0;
+    border-radius: 3px;
+}
+
+.session-card {
+    margin: 0 25px 20px; 
+    border: 1px solid #808080; 
+    border-radius: 5px;
+    visibility: hidden;
+}
+
+.session-card > .cardBar {
+    width: 101%;
+    height: 5px;
+    margin: 5px 0px 5px -5px;
+    background-color: #5397f0;
+    border-radius: 3px;
+}
+
+.session-header {
+    color: #5397f0;
+    font-weight: 600;
+    font-size: 1.3em;
+    margin-left: 30px;
+    margin-top: 12px;
+}
+
+.lh-30 {
+    line-height: 30px;
+}
+
+.session-label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #444;
+}
+
+/*
+    replace the css value
+*/
+.form-group {
+    margin-bottom: 0;
+    margin-left: 30px;
+    color: #666;
+}
+
+[type=checkbox] + label {
+    margin-bottom: 0;
+    padding-left: 30px;
+    line-height: 23px;
+}
+
+[type=checkbox]:checked + label:before {
+    border-right: 2px solid #00a453;
+    border-bottom: 2px solid #00a453;
+}
+
+.target-input > input[type=text] {
+    text-align: center;
+    border-bottom: 0;
+}
+
+input[type=text] {
+    height: 1.4rem;
+    font-size: 1.2rem;
+}
+
+.md-form {
+    margin-bottom: .5rem;
+}
+.md-form label {
+    font-size: 1rem;
+    margin-left: 30px;
+}
+
+/*=======================================
+    List Grid Card Style
+  =======================================*/
+.listBox {
+    position: relative;
+    float: left;
+    margin: 10px 10px 20px 10px;
+    width: 400px; 
+    height: 360px; 
+    border: 1px solid #5397f0;
+    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+    /*box-shadow: 0px 0px 2px 1px rgba(34, 25, 25, 0.4);*/
+    background-color: #f8f8f8;
+}
+
+.listBox-headbar {
+    width:98%; 
+    height: 6px; 
+    margin: 3px auto; 
+    background-color: #5397F0; 
+    border-radius: 3px;
+}
+
+.listTitle {
+    display: table;
+}
+
+.listTitle > div {
+    display: table-cell;
+}
+
+.flagBlock {
+    width: 50px;
+    text-align: center;
+    padding-top: 12px;
+}
+
+.listTitle i {
+    color: #555
+}
+
+.listTitle-text {
+    width: 295px;
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #555;
+    line-height: 18px;
+    word-break: keep-all;
+}
+
+.valueBox {
+    width: 78%;
+    height: 100px;
+    margin-left: 50px;
+    position: absolute;
+    top: 18%;
+    font-weight: 400;
+    font-size: 1.03em;
+    height: 200px;
+    overflow-y: auto;
+    color: #23619C;
+    -ms-word-break: keep-all;
+    word-break: keep-all;
+    /*cursor: pointer;*/
+}
+
+.listBox-bottomrow {
+    position: absolute;
+    bottom: 6%;
+    margin-left: 30px;
+    width: 88%;
+    word-break: keep-all;
+}
+
+.listBox-bottomrow > div {
+    /*float: left;*/
+}
+
+.listBox-bottomrow span {
+    font-size: .9em;
+    font-weight: 400;
+    color: #555;
+}
+
+.bottomrow-sp2 {
+    padding-right: 8px;
+    border-right: 2px solid #444;
+}
+
+.bottomrow-sp3 {
+    padding-left: 9px;
+}
+
+.listBox-detail-link {
+    position: absolute; 
+    bottom: 6px; 
+    right: 5px; 
+    width: 20px; 
+    height: 20px;
+}
+
+/*=========================================
+    Customized scroll bar
+ ==========================================*/
+/*::-webkit-scrollbar {
+  width: 0.5em;
+  height: 0.5em;
+}
+
+::-webkit-scrollbar-thumb {
+  background: slategray;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: #b8c0c8;
+}
+
+::-webkit-scrollbar-button {
+    background-size: 100%;
+    height: 0.5em;
+    width: 0.5em;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+::-webkit-scrollbar-button:horizontal:increment {
+    background-image: url(https://dl.dropboxusercontent.com/u/55165267/icon2.png);
+}
+
+::-webkit-scrollbar-button:horizontal:decrement {
+    background-image: url(https://dl.dropboxusercontent.com/u/55165267/icon4.png);
+}
+*/
+::-webkit-scrollbar-button:vertical:increment {
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+}
+
+::-webkit-scrollbar-button:vertical:decrement {
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+}
+
+div.customScrollBar {
+  scrollbar-face-color: #c8c8c8;
+  scrollbar-track-color: #f8f8f8;
+}
+
+.customScrollBar::-webkit-scrollbar {
+    height: 12px;
+    width: 12px
+}
+
+.customScrollBar::-webkit-scrollbar:disabled {
+    display: none
+}
+
+.customScrollBar::-webkit-scrollbar-button {
+    background-color: #f8f8f8;
+    background-repeat: no-repeat;
+    color: #98a3a6;
+    cursor: pointer
+}
+
+.customScrollBar::-webkit-scrollbar-button:horizontal:increment,.customScrollBar::-webkit-scrollbar-button:horizontal:decrement,.customScrollBar::-webkit-scrollbar-button:horizontal:increment:hover,.customScrollBar::-webkit-scrollbar-button:horizontal:decrement:hover,.customScrollBar::-webkit-scrollbar-button:vertical:increment,.customScrollBar::-webkit-scrollbar-button:vertical:decrement,.customScrollBar::-webkit-scrollbar-button:vertical:increment:hover,.customScrollBar::-webkit-scrollbar-button:vertical:decrement:hover {
+    background-position: center;
+    height: 12px;
+    width: 12px
+}
+
+.customScrollBarLight::-webkit-scrollbar-button {
+    display: none
+}
+
+.customScrollBar::-webkit-scrollbar-track {
+    background-color: #f8f8f8
+}
+
+.customScrollBarLight::-webkit-scrollbar-track {
+    background-color: #0072c6
+}
+
+.customScrollBar::-webkit-scrollbar-thumb {
+    border-radius: 9px;
+    border: solid 3px #f8f8f8;
+    background-color: #c8c8c8
+}
+
+.customScrollBarLight::-webkit-scrollbar-thumb {
+    border-color: #0072c6;
+    background-color: #95b1c1
+}
+
+.customScrollBar::-webkit-scrollbar-thumb:vertical {
+    min-height: 30px
+}
+
+.customScrollBar::-webkit-scrollbar-thumb:horizontal {
+    min-width: 30px
+}
+
+.customScrollBar::-webkit-scrollbar-thumb:hover {
+    border-radius: 9px;
+    border: solid 3px #ececec;
+    background-color: #98a3a6
+}
+
+.customScrollBar::-webkit-scrollbar-corner {
+    background-color: #f8f8f8
+}
+
+
+
+/* ==========================================================================
+.___  ___.  _______  _______   __       ___           ______      __    __   _______ .______       __   _______     _______.
+|   \/   | |   ____||       \ |  |     /   \         /  __  \    |  |  |  | |   ____||   _  \     |  | |   ____|   /       |
+|  \  /  | |  |__   |  .--.  ||  |    /  ^  \       |  |  |  |   |  |  |  | |  |__   |  |_)  |    |  | |  |__     |   (----`
+|  |\/|  | |   __|  |  |  |  ||  |   /  /_\  \      |  |  |  |   |  |  |  | |   __|  |      /     |  | |   __|     \   \    
+|  |  |  | |  |____ |  '--'  ||  |  /  _____  \     |  `--'  '--.|  `--'  | |  |____ |  |\  \----.|  | |  |____.----)   |   
+|__|  |__| |_______||_______/ |__| /__/     \__\     \_____\_____\\______/  |_______|| _| `._____||__| |_______|_______/     
+
+   ========================================================================== */
+
+@media (max-width: 1312px) and (min-width: 1030px) {
+    #master-container {
+        margin-top: 61px;
+    }
+}
+
+@media (max-width: 1029px) {
+    #master-container {
+        margin-top: 53px;
+    }
+
+    .rightPane-inner {
+        margin-left: 0px;
+    }
+}

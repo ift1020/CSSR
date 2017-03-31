@@ -1,0 +1,344 @@
+﻿html, body {
+  font-size: 1em;
+  background: #fff;
+  font-family: Arial;
+}
+
+.notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
+
+/* ==========================================================================
+    Clear Floating Rule
+   ========================================================================== */
+.clearfix {
+    width: 100%;
+    clear: both !important;
+    display: inline-block;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+/* ==========================================================================
+    COLOR PALETTE
+   ========================================================================== */
+.bgcolor-1 {
+  background: #2166ac !important;
+}
+
+.bgcolor-2 {
+  background: #5397f0 !important;
+}
+
+/* ==========================================================================
+    HEADER
+   ========================================================================== */
+
+#dd-logo {
+    position: fixed; 
+    z-index: 951; 
+    left: 15px; 
+    top: 6px; 
+    height: 68px;
+}
+
+#dd-logo img {
+    height: 68px;
+    transition: all 250ms ease;
+}
+
+#dvMenu {
+	  line-height: 1.15em;
+}
+
+/* ==========================================================================
+    ASIDE PANEL
+   ========================================================================== */
+#left-panel.shrink {
+    width: 50px !important;
+}
+
+#left-panel {
+  padding-top: 90px;
+  width: 300px;
+  position: fixed;
+  transition: width .25s ease-in-out;
+  bottom: 0;
+  overflow-y: auto;
+}
+
+nav ul span.menu-item-parent {
+  font-size: 1em;
+}
+
+nav > ul > li:first-child > a {
+    margin-bottom: 0;
+    color: #ddd;
+    height: 44px
+}
+nav > ul > li:first-child > a > i {
+    line-height: 28px;
+}
+
+#left-panel > nav > ul > li#tnTab > a > i {
+    left: 4px;
+    font-size: 1.5em;
+    transition: transform 300ms ease-in;
+}
+
+#left-panel > nav > ul > hr {
+    border-top: 1px dotted #999; 
+    margin: 12px 15px;
+}
+#left-panel.shrink > nav > ul > hr {
+    border-top: 1px dotted #999; 
+    margin: 12px 10px;
+}
+
+nav ul li a {
+    font-size: 15px !important;
+    font-weight: 500;
+    padding-top: 2px;
+    padding-left: 8%;
+    padding-right: 2%;
+    transition: font-size 0.2s ease;
+    color: #DDD;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+nav ul b {
+	top: 0 !important;
+    font-size: 1em;
+}
+
+#left-panel.shrink ~ #main {
+    margin-left: 50px ;
+}
+
+nav > ul > li > a > span, .nav-bar-bottom > a > span {
+    opacity: 1;
+    transition: all 250ms ease-out;
+}
+#left-panel.shrink > nav > ul > li > a > span,  #left-panel.shrink > .nav-bar-bottom > a > span {
+    opacity: 0;
+    display: none;
+}
+#left-panel.shrink > nav > ul > li > a > i {
+    margin-left: 8px;
+}
+#left-panel.shrink > nav > ul > li > a > b {
+    right: 2px;
+    top: 3px;
+}
+#left-panel.shrink > nav > ul > li#tnTab > a > i {
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+    margin-left: 9px;
+}
+
+nav > ul > div#menu-list {
+    transition: width 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+    transition: height 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+/* ==========================================================================
+    MAIN CONTETN
+   ========================================================================== */
+#main {
+    margin-left: 300px;
+    padding: 0;
+    transition: all 250ms ease-out;
+}
+
+#content {
+    padding: 10px 0;
+}
+
+/* ==========================================================================
+.___  ___.  _______  _______   __       ___           ______      __    __   _______ .______       __   _______     _______.
+|   \/   | |   ____||       \ |  |     /   \         /  __  \    |  |  |  | |   ____||   _  \     |  | |   ____|   /       |
+|  \  /  | |  |__   |  .--.  ||  |    /  ^  \       |  |  |  |   |  |  |  | |  |__   |  |_)  |    |  | |  |__     |   (----`
+|  |\/|  | |   __|  |  |  |  ||  |   /  /_\  \      |  |  |  |   |  |  |  | |   __|  |      /     |  | |   __|     \   \    
+|  |  |  | |  |____ |  '--'  ||  |  /  _____  \     |  `--'  '--.|  `--'  | |  |____ |  |\  \----.|  | |  |____.----)   |   
+|__|  |__| |_______||_______/ |__| /__/     \__\     \_____\_____\\______/  |_______|| _| `._____||__| |_______|_______/     
+
+   ========================================================================== */
+@media (max-width: 1600px) {
+	#dvMenu .tbl-center {
+	  float: right;
+	  margin-right: 100px !important;
+	}
+
+    #left-panel {
+        position: fixed;
+    }
+}
+
+@media (max-width: 1312px) and (min-width: 1030px) {
+	#dd-logo img {
+		height: 48px;
+	}
+	
+	#dvMenu .tbl-center {
+	  float: none;
+	  margin-right: 100px !important;
+	}
+	
+    #dvMenu .tbl-center > #head-banner{
+        text-align: right;
+        margin: 2px 30px 0px 20px;
+    }
+
+	#dvMenu {
+	  height: 60px !important;
+	  min-height: 60px !important;
+	}
+
+    #left-panel {
+        padding-top: 70px;
+        position: absolute;
+    }
+
+    #master-container {
+        margin-top: 61px;
+    }
+}
+
+@media (max-width: 1029px) and (min-width: 769px) {
+  #left-panel {
+    left: -280px;
+  }
+
+  #main {
+    margin-left: 0 !important; 
+  }
+  
+  #dd-logo, #head-banner { display: none }
+  
+  #dvMenu .tbl-center {
+	  float: none  !important;
+	  margin: 0 0 0 0 !important;
+	  width: 100%;
+	}
+  
+    #dvMenu {
+		height: 50px !important;
+		min-height: 50px !important;
+	}
+	
+	/*Make dropdown links appear inline*/
+	#dvMenu ul {
+		position: static;
+		display: none;
+		width: 100%;
+	}
+	/*Create vertical spacing*/
+	#dvMenu li {
+		margin-bottom: 0px;
+	}
+	/* menu item bottom border */
+	#menu > li {
+		border-bottom: solid 1px #E6E6E6;
+	}
+	/* menu item content's backgroup color */
+	#menu > li > a {
+		background: #f2f2f2 !important;
+	}
+	/* selected or hover menu item */
+	#menu > li:hover > a {
+	    background: #083890 !important;
+	}
+	/* selected or hover submenu item in dropdown menu */
+	.to-hide > li > a:hover {
+		background: #3868B0 !important;
+	}
+	/*Make all menu links full width*/
+	#dvMenu ul li, #dvMenu li a {
+		width: 100% !important;
+	}
+	/*Display 'show menu' link*/
+	.show-menu {
+		display: block !important;
+	}
+	/*Style for dropdown links*/
+	#dvMenu li:hover ul a {
+		text-align: center !important;
+	}
+  
+}
+
+@media (max-width: 768px) { 
+  #main {
+    margin-left: 0 !important;
+  }
+
+  #left-panel {
+    left: -280px;
+  }
+  
+  #dd-logo, #head-banner { display: none }
+  
+  #dvMenu .tbl-center {
+	  float: none;
+	  margin: 0 0 0 0 !important;
+  }
+  
+  #dvMenu {
+	height: 50px;
+	min-height: 50px;
+  }
+}
+
+@media (max-width: 550px) {
+  #content {
+    padding: 0;
+  }
+
+  #content > .row {
+    display: none;
+  }
+
+  #main {
+    margin-left: 0 !important;
+  }
+
+  #left-panel {
+    left: -280px;
+  }
+  
+  #dd-logo, #head-banner { display: none }
+
+  #dvMenu {
+	height: 50px;
+	min-height: 50px;
+  }
+}
+
+@media print {
+    a:link:after,
+    a:visited:after {
+        content: "" !important;
+    }
+
+    html, body {
+      font-size: 12px;
+      background: #fff;
+    }
+}
