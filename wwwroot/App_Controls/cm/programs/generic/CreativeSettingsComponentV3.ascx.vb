@@ -132,8 +132,13 @@ Namespace DealerDirect.UserControls.CampaignManagement.Programs.Generic
 			If m_PreviewGenerator Is Nothing Then
 				Dim ctrl As System.Web.UI.Control
 
-				ctrl = Page.LoadControl(m_PreviewGeneratorControlPath)
-				m_PreviewGenerator = DirectCast(ctrl, DealerDirect.UserControls.CampaignManagement.Programs.IPreviewGenerator)
+                If m_Program.PreviewGeneratorControlPath Is Nothing OrElse m_Program.PreviewGeneratorControlPath.Length = 0 Then
+                    ctrl = Page.LoadControl(m_PreviewGeneratorControlPath) 'm_PreviewGeneratorControlPath)
+                Else
+                    ctrl = Page.LoadControl(m_Program.PreviewGeneratorControlPath) 'm_PreviewGeneratorControlPath)
+                End If
+
+                m_PreviewGenerator = DirectCast(ctrl, DealerDirect.UserControls.CampaignManagement.Programs.IPreviewGenerator)
 				m_PreviewGenerator.Program = m_Program
 				m_PreviewGenerator.StyleGroupCode = Me.sseMain.StyleGroupCode
 				AddHandler m_PreviewGenerator.PrepareVariablesForPreview, AddressOf pgMain_PrepareVariablesForPreview

@@ -144,7 +144,6 @@
         <i class="fa fa-lg fa-fw fa-angle-double-up"></i>
     </a>
 
-    <script src="/resources/scripts/jquery.multiple.select.min.js"></script>
     <script src="/resources/scripts/cssr/cm-main.js?_=<%=Date.Now.Ticks.ToString()%>"></script>
 
     <script>

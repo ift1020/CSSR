@@ -6,12 +6,6 @@
         Public Title As String
     End Class
 
-    'Public Class Format
-    '    Public Title As String
-    '    Public Indicator As String
-    '    Public Price As String
-    'End Class
-
     Public Class Sample
         Public SampleSetID As Integer
         Public Brand As String
@@ -107,19 +101,6 @@
                 Me.Checks.Add(chk)
             Next
 
-
-            'Dim f As Format
-            'f = New Format
-            'f.Title = "eMail"
-            'f.Indicator = "em"
-            'f.Price = "Free"
-            'Me.Formats.Add(f)
-
-            'f = New Format
-            'f.Title = "Letter"
-            'f.Indicator = "lt"
-            'f.Price = "$1.15"
-            'Me.Formats.Add(f)
 
         End Sub
     End Class

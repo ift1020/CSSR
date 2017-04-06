@@ -129,7 +129,6 @@ Namespace DealerDirect.WebServices.CampaignManagement
                         sFileName &= ".html"
                 End Select
 
-
                 If Not System.IO.File.Exists(System.IO.Path.Combine(DealerDirect.Configuration.Item("vdp_output_folder").Text1Value, sFileName)) Then
                     CM2.GMCL.DealerDirect.VDP.Client.Rendering.saveRequestOutput(nRequestID, System.IO.Path.Combine(DealerDirect.Configuration.Item("vdp_output_folder").Text1Value, sFileName))
                 End If
@@ -182,7 +181,8 @@ Namespace DealerDirect.WebServices.CampaignManagement
                         p = New DealerDirect.CampaignManagement.Programs.CSSR2017.ThankYou.Program
                     Case 304
                         p = New DealerDirect.CampaignManagement.Programs.CSSR2017.Anniversary.Program
-
+                    Case 305
+                        p = New DealerDirect.CampaignManagement.Programs.CSSR2017.DexCool.Program
                 End Select
 
                 'If bResult Or True Then
@@ -210,7 +210,6 @@ Namespace DealerDirect.WebServices.CampaignManagement
 
             Return m_Result
         End Function
-
     End Class
 
     Public Class CSSRNewsItem

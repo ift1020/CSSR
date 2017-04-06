@@ -63,6 +63,14 @@
 
         Public Overridable Property PreviewGeneratorControlPath As String
 
+        Protected m_EstimatesTextResourceCode As String
+
+        Public ReadOnly Property EstimatesTextResourceCode As String
+            Get
+                Return m_EstimatesTextResourceCode
+            End Get
+        End Property
+
 
         Public ReadOnly Property PricingDisplayMode() As PricingDisplayMode
 			Get
@@ -310,20 +318,20 @@ Public ReadOnly Property Format() As String
 		Public Sub New()
 		End Sub
 
-Public Sub New(ByVal program_id As Integer, Optional ByVal skip_load As Boolean = False)
-			m_ProgramID = program_id
-			If Not (skip_load) Then Me.loadProgramBase()
+        Public Sub New(ByVal program_id As Integer, Optional ByVal skip_load As Boolean = False)
+            m_ProgramID = program_id
+            If Not (skip_load) Then Me.loadProgramBase()
 
-			If Me.SubCampaignID = 0 Then
-				System.Web.HttpContext.Current.Response.Redirect("/cm/programs/error.aspx?e=notfound", True)
-			End If
+            If Me.SubCampaignID = 0 Then
+                System.Web.HttpContext.Current.Response.Redirect("/cm/programs/error.aspx?e=notfound", True)
+            End If
 
-			If Not (skip_load) Then Programs.Styles.loadProgramStyles(Me)
-			If Not (skip_load) Then Programs.Offers.loadProgramOffers(Me)
-		End Sub
+            If Not (skip_load) Then Programs.Styles.loadProgramStyles(Me)
+            If Not (skip_load) Then Programs.Offers.loadProgramOffers(Me)
+        End Sub
 
 
-		Private Sub attachBaseProperties(ByVal irdr_on_row As System.Data.IDataReader)
+        Private Sub attachBaseProperties(ByVal irdr_on_row As System.Data.IDataReader)
 			m_SubCampaignID = irdr_on_row("sub_campaign_id")
 			m_Enabled = Utility.Data.FlagToBoolean(irdr_on_row("enabled_fl"))
 			m_SetupFilterSetCode = Utility.Data.NothingIfNull(irdr_on_row("setup_filter_set_cd"))
@@ -362,8 +370,9 @@ Public Sub New(ByVal program_id As Integer, Optional ByVal skip_load As Boolean 
 			If irdr_on_row("batch_exec_end_dt") IsNot System.DBNull.Value Then m_BatchExecEndDate = CDate(irdr_on_row("batch_exec_end_dt"))
 
 			m_FormatResourceCode = Utility.Data.NothingIfNull(irdr_on_row("format_resource_cd"))
-			m_CadenceResourceCode = Utility.Data.NothingIfNull(irdr_on_row("cadence_resource_cd"))
-		End Sub
+            m_CadenceResourceCode = Utility.Data.NothingIfNull(irdr_on_row("cadence_resource_cd"))
+            m_EstimatesTextResourceCode = Utility.Data.NothingIfNull(irdr_on_row("Estimates_Text_Resource_cd"))
+        End Sub
 
 		Public Function loadProgramBase() As Boolean
 			Dim cmd As Devart.Data.Oracle.OracleCommand
@@ -481,6 +490,7 @@ Public Sub New(ByVal program_id As Integer, Optional ByVal skip_load As Boolean 
 
 			Return m_Enabled
 		End Function
+		
 		Public Sub setComponentApproval(ByVal component_index As Integer, ByVal approval As Boolean)
 			Dim s As String = ""
 			Dim ca As Char()

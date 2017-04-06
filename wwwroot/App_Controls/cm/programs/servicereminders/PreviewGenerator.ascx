@@ -1,8 +1,8 @@
-<%@ Control Language="VB" AutoEventWireup="false" CodeFile="PreviewGeneratorV3.ascx.vb" Inherits="DealerDirect.UserControls.CampaignManagement.Programs.Generic.PreviewGeneratorV3" %>
-<%@ Register Assembly="DevExpress.Web.v11.1, Version=11.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
-    Namespace="DevExpress.Web.ASPxClasses" TagPrefix="dxw" %>
-<%@ Register Assembly="DevExpress.Web.ASPxEditors.v11.1, Version=11.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.ASPxEditors" TagPrefix="dxe" %>
-<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<%@ Control Language="VB" AutoEventWireup="false" CodeFile="PreviewGenerator.ascx.vb" Inherits="DealerDirect.UserControls.CampaignManagement.Programs.ServiceReminders.PreviewGenerator" %>
+<%@ register assembly="DevExpress.Web.v11.1, Version=11.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+  namespace="DevExpress.Web.ASPxClasses" tagprefix="dxw" %> 
+<%@ Register assembly="DevExpress.Web.ASPxEditors.v11.1, Version=11.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" 
+	namespace="DevExpress.Web.ASPxEditors" tagprefix="dxe" %>
 
 <style>
     .previewRowLabel {
@@ -18,7 +18,6 @@
     }
 </style>
 
-<br />
 
 <script type="text/javascript">
     var item = {
@@ -61,7 +60,8 @@
         return false;
     };
 
-    function createPreview() {      
+    function createPreview() {
+       
         prepareVersions();
 
         window.top.toastr["info"]("Please wait while your previews are generated");
@@ -73,10 +73,10 @@
         var label, ddl;	
 
         label = hh + ":" + mm + ":" + ss;
-
+        
         var hdr = document.getElementById("sampleHeaderRow");
         hdr.style.display = '';
-
+        
         ddl = document.getElementById('<%=Me.ddlTarget.ClientID%>');
         var t = ddl.options[ddl.selectedIndex].value;
         label += ' - ' + ddl.options[ddl.selectedIndex].text;
@@ -99,13 +99,13 @@
             $.get("dataservice.aspx?op=getpreviewstatus&rid=" + rid + "&rnd=" + Math.random(),
 				function (data) {
 				    if (data !== 'Complete') {
+				        cell.innerHTML = data;
 
-				        if (data === "Running") {
+                         if (data === "Running") {
 				            cell.innerHTML = "<%=DealerDirect.Resources.getString("LITERAL_Running")%>";
 				        } else {
 				            cell.innerHTML = data;
 				        }
-
 
 				        if (data === "Failed") return;
 
@@ -119,7 +119,8 @@
 				    else {
 				        $.get("dataservice.aspx?op=getpreview&rid=" + rid + "&c=" + c,
 							function (data) {
-							   cell.innerHTML = '<a href="' + data + '" target="_new"><%=DealerDirect.Resources.getString("LITERAL_View")%></a>';
+							    console.log(data);
+							    cell.innerHTML = '<a href="' + data + '" target="_new"><%=DealerDirect.Resources.getString("LITERAL_View")%></a>';
 							});
 				    }				
 				});
@@ -127,7 +128,13 @@
     }
 	
     function doPreview(item, label, t) {
-        $.get("dataservice.aspx?op=createpreview&pid=<%=Me.Program.ProgramID%>&sid=<%=Me.Program.SubCampaignID%>&sg=<%=Me.StyleGroupCode %>&l=" + item.lv + "&c=" + item.cv + "&v=" + item.vv + "&t=" + t + "&o=" + "&rnd=" + Math.random(),
+        var ddl = document.getElementById('<%=Me.ddlBrand.ClientID%>');
+        var b = ddl.options[ddl.selectedIndex].value;
+              
+        ddl = document.getElementById('<%=Me.ddlStyleOption.ClientID%>');
+        var so = ddl.options[ddl.selectedIndex].value;
+     
+        $.get("dataservice.aspx?op=createpreview&pid=<%=Me.Program.ProgramID%>&sid=<%=Me.Program.SubCampaignID%>&sg=<%=Me.StyleGroupCode %>&l=" + item.lv + "&c=" + item.cv + "&v=" + item.vv + "&t=" + t + "&so=" + so + "&o=" + b + "&rnd=" + Math.random(),
 		     function (rid) {
 		         if (rid > 0) {
 		             createPreviewRow(label, item.lt, item.ct, rid);
@@ -142,14 +149,16 @@
     }
 </script>
 
+
+<br />
 <table cellspacing="0" cellpadding="0" style="border-style: none; width: 900px; border-color: #5397f0;" id="previewTable">
-    <tr>
+	 <tr>
         <td colspan="5" style="text-align: left; padding: 2px;">
             <div class="sectionTitle"><%=DealerDirect.Resources.getString("LITERAL_Preview_Creative")%></div>
             <div class="sectionBar"></div>
         </td>
     </tr>
-    <tr style="text-align: center; vertical-align: middle; padding: 3px; padding-bottom: 0px;">
+<tr style="text-align: center; vertical-align: middle; padding: 3px; padding-bottom: 0px;">
         <td style="white-space: nowrap; text-align: right; padding: 3px;">
             <%=DealerDirect.Resources.getStringColon("LITERAL_Audience")%>	
         </td>
@@ -162,13 +171,14 @@
         <td width="150" style="white-space: nowrap; padding-bottom: 0px; border-right: 1px solid #5397f0;">
             <%=DealerDirect.Resources.getStringColon("LITERAL_Channel")%>
         </td>
-        <td width="150" rowspan="2" valign="middle">
-             <%Me.btnCreatePreview.Text = DealerDirect.Resources.getString("LITERAL_Preview")
+        <td width="150" rowspan="2" valign="middle">            
+            <%Me.btnCreatePreview.Text = DealerDirect.Resources.getString("LITERAL_Preview")
                  %>
             <asp:Button ID="btnCreatePreview" runat="server" Text="Preview" CssClass="previewButton" OnClientClick="return createPreview();" />
         </td>
     </tr>
-    <tr style="text-align: center; vertical-align: middle; padding: 3px;">
+
+	 <tr style="text-align: center; vertical-align: middle; padding: 3px;">
         <td style="white-space: nowrap; text-align: right; padding: 3px;">
             <%=DealerDirect.Resources.getStringColon("LITERAL_Version")%>	
         </td>
@@ -177,28 +187,57 @@
             <telerik:RadComboBox runat="server" CheckBoxes="true" ID="rcbMultiSV" RenderMode="Lightweight" Width="300px" AutoPostBack="false" Skin="Default">
             </telerik:RadComboBox>
         </td>
-        <td style="border-right: 1px solid #5397f0; vertical-align: top; padding: 3px;" rowspan="1">
+        <td style="border-right: 1px solid #5397f0; vertical-align: top; padding: 3px;" rowspan="3">
             <asp:CheckBox ID="chkEnglish" runat="server" Text="En" />
-            <asp:CheckBox ID="chkFrench" runat="server" Text="Fr" /> 
+            <asp:CheckBox ID="chkFrench" runat="server" Text="Fr" />           
         </td>
-        <td style="white-space: nowrap; border-right: 1px solid #5397f0; vertical-align: top; padding: 3px;" rowspan="1">
-              <%
+        <td style="white-space: nowrap; border-right: 1px solid #5397f0; vertical-align: top; padding: 3px;" rowspan="3">
+            <%
                 chkMail.Text = DealerDirect.Resources.getStringColon("LITERAL_Mail")
                 chkEMail.Text = DealerDirect.Resources.getStringColon("LITERAL_eMail")
                  %>
-            <asp:CheckBox ID="chkMail" runat="server" Text="Mail" />
-            <asp:CheckBox ID="chkEMail" runat="server" Text="eMail" />
+            <asp:CheckBox ID="chkMail" runat="server" Text="DM" />
+            <asp:CheckBox ID="chkEMail" runat="server" Text="EM" />
         </td>
     </tr>
-    <tr id="sampleHeaderRow" style="display: none;">
+
+	<tr style="text-align: center; vertical-align: middle; padding: 3px">
+		<td style="white-space: nowrap; text-align: right;padding: 3px;">
+			<%=DealerDirect.Resources.getStringColon("LITERAL_Brand")%>	
+		</td>
+		<td style="white-space: nowrap; text-align: left; border-right: 1px solid #5397f0; padding: 3px;">
+			<asp:DropDownList ID="ddlBrand" runat="server" DropDownWidth="200px" AutoPostBack="false" Width="300px" Skin="Default">
+				<Items>					
+					<asp:ListItem Text ="Buick" Value ="B" />
+					<asp:ListItem Text ="Cadillac" Value ="K" />
+					<asp:ListItem Text ="Chevrolet" Value ="C" />
+					<asp:ListItem Text ="GMC" Value ="G" />
+					<asp:ListItem Text ="None/Generic" Value ="N" />
+				</Items>
+			</asp:DropDownList>
+		</td>
+	</tr>
+	<tr style="text-align: center; vertical-align: middle; padding: 3px">
+		<td style="white-space: nowrap; text-align: right;padding: 3px;">
+			<%=DealerDirect.Resources.getStringColon("LITERAL_Season")%>	
+		</td>
+		<td style="white-space: nowrap; text-align: left; border-right: 1px solid #5397f0; padding: 3px;">
+			<asp:DropDownList ID="ddlStyleOption" runat="server" DropDownWidth="200px" AutoPostBack="false" Width="300px">
+				<asp:ListItem Text ="Spring" Value ="SPRING" />
+					<asp:ListItem Text ="Summer" Value ="SUMMER" />
+					<asp:ListItem Text ="Fall" Value ="FALL" />
+					<asp:ListItem Text ="Winter" Value ="WINTER" />
+				</asp:DropDownList>		
+		</td>
+	</tr>
+     <tr id="sampleHeaderRow" style="display: none;">
         <td colspan="5" style="text-align: left; padding-left: 50px; padding-top: 15px; padding-bottom: 5px;">
             <div class="sectionSubTitle"><%=DealerDirect.Resources.getString("LITERAL_Samples")%></div>
             <div class="sectionSubBar"></div>
         </td>
     </tr>
 </table>
-<br />
-<br />
+
 
 <script type="text/javascript">
     function OnClientLoadHandler(sender) {
@@ -220,9 +259,9 @@
         var chkChanE = document.getElementById("<%= Me.chkEMail.ClientID%>");
 
         var items1 = combo1.get_checkedItems();
-        //var items3 = combo3.get_checkedItems();
 
-        items.length = 0;
+
+         items.length = 0;
         for (var i = 0, len1 = items1.length; i < len1; i++) {
             if (chkLangEN.checked) {
                 if (chkChanD.checked) {
@@ -275,3 +314,4 @@
     };
     
 </script>
+

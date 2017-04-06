@@ -10,11 +10,8 @@
 
                     If Me.isDescVisible Then
                         Me.lbtnToggleDesc.Text = "(" & DealerDirect.Resources.getString("LITERAL_Hide") & ")"
-                        'Me.lblDesc.Visible = True
-                        'Me.lblDesc.Text = "<br/>" & Me.Audience.Description
                     Else
                         Me.lbtnToggleDesc.Text = "(" & DealerDirect.Resources.getString("LITERAL_Details") & ")"
-                        'Me.lblDesc.Visible = False
                     End If
                 Else
                     Me.lbtnToggleDesc.Visible = False
@@ -24,7 +21,6 @@
         <span class="audDescription"><%=Me.Audience.Description %></span>
         <% End if %>
 
-<%--		<asp:Label ID="lblDesc" Font-Italic="true" runat="server" CssClass="audDescription"/>--%>
 		<asp:LinkButton ID="lbtnToggleDesc" CausesValidation="false" runat="server" CssClass="audDescriptionLink"></asp:LinkButton>	
 		<div><asp:Label ID="lblError" runat="server" ForeColor="Red" Font-Bold="true"/></div>
 	</td>

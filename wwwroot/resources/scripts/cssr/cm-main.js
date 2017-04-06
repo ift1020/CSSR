@@ -78,13 +78,12 @@
         for (var i = 0, len = summaryData.length; i < len; i++) {
             sHtml += '<div id="pane-' + i + '" class="pane-content" data-pid="' + summaryData[i].programID + '">';
             sHtml += '  <div class="header">';
-            //sHtml += '    <i class="fa fa-lg fa-fw fa-exclamation-circle uncheck"></i>';
             sHtml += '    <span class="fa-lg fa-stack" style="height: 1.3em; line-height: 1.3em">';
             sHtml += '      <i class="fa fa-circle fa-stack-1x uncheck" style="font-size: 1.5em"></i>';
             sHtml += '      <i class="fa fa-exclamation fa-stack-1x fa-inverse" style="font-size: 1em"></i>';
             sHtml += '    </span>';
             sHtml += '    <span>' + summaryData[i].title + '</span>';
-            sHtml += '    <button class="btn btn-primary activate-button text-capitalize" onclick="cssr.toggleActive(' + summaryData[i].programID + '); return false;">' + myVar.ms_activate + '</button>';
+            sHtml += '    <button class="btn activate-button text-capitalize" onclick="cssr.toggleActive(' + summaryData[i].programID + '); return false;">' + myVar.ms_activate + '</button>';
             sHtml += '  </div>';
             sHtml += '  <div class="row-tabs"></div>';
             sHtml += '  <div class="offer-card col-full">';
@@ -202,11 +201,11 @@
             if (isAllChecked(index))
                 $('#pane-' + cssr.optComb.menuIndex + ' > .header > button').prop("disabled", false).css("cursor", "pointer");
             else {
-                //$('#pane-' + cssr.optComb.menuIndex + ' > .header > i').removeClass("fa-check-circle check").addClass("fa-exclamation-circle uncheck");
                 $('#pane-' + cssr.optComb.menuIndex + ' > .header i.fa-circle').removeClass("check").addClass("uncheck");
             	$('#pane-' + cssr.optComb.menuIndex + ' > .header i.fa-check').removeClass("fa-check").addClass("fa-exclamation");
-                $('#pane-' + cssr.optComb.menuIndex + ' > .header > button').prop("disabled", true).css("cursor", "default").text(myVar.ms_activate);
-                //$('#menu-' + summaryData[index].programID + ' > i').removeClass("fa-check-circle check").addClass("fa-exclamation-circle uncheck");
+            	$('#pane-' + cssr.optComb.menuIndex + ' > .header > button').prop("disabled", true).css("cursor", "default").text(myVar.ms_activate);
+            	$('#pane-' + cssr.optComb.menuIndex + ' > .header > button').css({ "background-color": "#F44336" });
+
                 $('#menu-' + summaryData[index].programID + ' i.fa-circle').removeClass("check").addClass("uncheck");
             	$('#menu-' + summaryData[index].programID + ' i.fa-check').removeClass("fa-check").addClass("fa-exclamation");
             }
@@ -367,6 +366,24 @@
         }
     }
 
+    var initLog4Javascript = function () {
+        log = log4javascript.getLogger("myLogger");
+
+        var ajaxAppender = new log4javascript.AjaxAppender("//ec2-35-167-23-4.us-west-2.compute.amazonaws.com/alert/CssrLog.php");
+        ajaxAppender.setThreshold(log4javascript.Level.ALL);
+        var ajaxLayout = new log4javascript.PatternLayout("%d{yyyy-MM-dd HH:mm:ss,SSS} [%p] - %m%n");
+        ajaxAppender.setLayout(ajaxLayout);
+        ajaxAppender.addHeader("Content-Type", "application/json");
+        log.addAppender(ajaxAppender);
+    }
+
+    var getRequestIP = function () {
+        $.getJSON('//geoip.nekudo.com/api', function (data) {
+            var ipInfo = myVar.dealerID + ":" + myVar.userID + " access from [" + data.ip + "] " + data.city + ", " + data.country.name + ". Location is " + data.location.latitude + ", " + data.location.longitude;
+            log.debug(ipInfo);
+        });
+    }
+
     /*********************
       Web Services 
      *********************/
@@ -469,7 +486,8 @@
                                 //$('#pane-' + i + ' > .header > i').removeClass("fa-exclamation-circle uncheck").addClass("fa-check-circle check");
                                 $('#pane-' + i + ' > .header i.fa-circle').removeClass("uncheck").addClass("check");
             					$('#pane-' + i + ' > .header i.fa-exclamation').removeClass("fa-exclamation").addClass("fa-check");
-                                $('#pane-' + i + ' > .header > button').text(myVar.ms_deactivate);
+            					$('#pane-' + i + ' > .header > button').text(myVar.ms_deactivate);
+            					$('#pane-' + i + ' > .header > button').css({ "background-color": "#01A453" });
                                 //$('#menu-' + pid + ' > i').removeClass("fa-exclamation-circle uncheck").addClass("fa-check-circle check");
                                 $('#menu-' + pid + ' i.fa-circle').removeClass("uncheck").addClass("check");
             					$('#menu-' + pid + ' i.fa-exclamation').removeClass("fa-exclamation").addClass("fa-check");
@@ -478,7 +496,8 @@
                                 //$('#pane-' + i + ' > .header > i').removeClass("fa-check-circle check").addClass("fa-exclamation-circle uncheck");
                                 $('#pane-' + i + ' > .header i.fa-circle').removeClass("check").addClass("uncheck");
             					$('#pane-' + i + ' > .header i.fa-check').removeClass("fa-check").addClass("fa-exclamation");
-                                $('#pane-' + i + ' > .header > button').text(myVar.ms_activate);
+            					$('#pane-' + i + ' > .header > button').text(myVar.ms_activate);
+            					$('#pane-' + i + ' > .header > button').css({ "background-color": "#F44336" });
                                 //$('#menu-' + pid + ' > i').removeClass("fa-check-circle check").addClass("fa-exclamation-circle uncheck");
                                 $('#menu-' + pid + ' i.fa-circle').removeClass("check").addClass("uncheck");
             					$('#menu-' + pid + ' i.fa-check').removeClass("fa-check").addClass("fa-exclamation");
@@ -511,12 +530,17 @@
         isAllChecked: isAllChecked,
         enableStatusButton: enableStatusButton,
         testDemo: testDemo,
-        getSummary: getSummary
+        getSummary: getSummary,
+        initLog4Javascript: initLog4Javascript,
+        getRequestIP: getRequestIP
     };
 })();
 
 $(document).ready(function () {
     backToTop();
+
+    cssr.initLog4Javascript();
+    cssr.getRequestIP();
 
     cssr.initCssrDocView();
     //if (summaryData.length > 0) {
@@ -531,24 +555,24 @@ function showPanes(index) {
 
     if (summaryData.length > 0) {
         if (summaryData[index].status === true) {
-            //$('#pane-' + index + ' > .header > i').removeClass("fa-exclamation-circle uncheck").addClass("fa-check-circle check");
             $('#pane-' + index + ' > .header i.fa-circle').removeClass("uncheck").addClass("check");
             $('#pane-' + index + ' > .header i.fa-exclamation').removeClass("fa-exclamation").addClass("fa-check");
             $('#pane-' + index + ' > .header > button').prop("disabled", false).css("cursor", "pointer").text(myVar.ms_deactivate);
-            //$('#menu-' + summaryData[index].programID + ' > i').removeClass("fa-exclamation-circle uncheck").addClass("fa-check-circle check");
+            $('#pane-' + index + ' > .header > button').css({ "background-color": "#01A453" });
+
             $('#menu-' + summaryData[index].programID + ' i.fa-circle').removeClass("uncheck").addClass("check");
             $('#menu-' + summaryData[index].programID + ' i.fa-exclamation').removeClass("fa-exclamation").addClass("fa-check");
         }
         else {
-            //$('#pane-' + index + ' > .header > i').removeClass("fa-check-circle check").addClass("fa-exclamation-circle uncheck");
             $('#pane-' + index + ' > .header i.fa-circle').removeClass("check").addClass("uncheck");
             $('#pane-' + index + ' > .header i.fa-check').removeClass("fa-check").addClass("fa-exclamation");
             $('#pane-' + index + ' > .header > button').prop("disabled", true).css("cursor", "default").text(myVar.ms_activate);
-            //$('#menu-' + summaryData[index].programID + ' > i').removeClass("fa-check-circle check").addClass("fa-exclamation-circle uncheck");
+            $('#pane-' + index + ' > .header > button').css({ "background-color": "#F44336" });
+
             $('#menu-' + summaryData[index].programID + ' i.fa-circle').removeClass("check").addClass("uncheck");
             $('#menu-' + summaryData[index].programID + ' i.fa-check').removeClass("fa-check").addClass("fa-exclamation");
 
-            if (cssr.isAllChecked(index)) $('#pane-' + index + ' > .header > button').prop("disabled", false);
+            if (cssr.isAllChecked(index)) $('#pane-' + index + ' > .header > button').prop("disabled", false).css("cursor", "pointer");
         }
     }
 

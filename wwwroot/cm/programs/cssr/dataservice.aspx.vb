@@ -45,10 +45,7 @@ Partial Class cm_programs_cssr_dataservice
                         sFileName &= ".html"
                 End Select
 
-                'If Not System.IO.File.Exists(System.IO.Path.Combine(DealerDirect.Configuration.Item("vdp_output_folder").Text1Value, sFileName)) Then
-                'CM2.GMCL.DealerDirect.VDP.Client.Rendering..saveRequestOutput(nRequestID, System.IO.Path.Combine(DealerDirect.Configuration.Item("vdp_output_folder").Text1Value, sFileName))
                 sFileName = CM2.GMCL.DealerDirect.VDP.Client.Rendering.getRequestOutputFileName(nRequestID)
-                'End If
 
                 sResponse = "https://vdp.gmdealerdirect.ca/previews/" & sFileName 'DealerDirect.Configuration.Item("vdp_output_url").Text1Value
 
@@ -74,11 +71,12 @@ Partial Class cm_programs_cssr_dataservice
                 Dim nSubCampaignID As Integer = Request.Params("sid")
                 Dim nProgramID As Integer = Request.Params("pid")
                 Dim sStyleGroup As String = Request.Params("sg")
+                Dim sStyleOption As String = Request.Params("so")
                 Dim sLanguage As String = Request.Params("l")
                 Dim sChannel As String = Request.Params("c")
                 Dim sVersion As String = Request.Params("v")
                 Dim sTarget As String = Request.Params("t")
-                Dim sOption As String = Request.Params("o")
+                Dim sOption1 As String = Request.Params("o")
                 Dim prv As DealerDirect.CampaignManagement.Programs.VDP.Preview
 
                 Select Case nProgramID
@@ -98,7 +96,6 @@ Partial Class cm_programs_cssr_dataservice
                         p = New DealerDirect.CampaignManagement.Programs.CSSR.Lease.Program
                     Case 208
                         p = New DealerDirect.CampaignManagement.Programs.CSSR.Finance.Program
-
                     Case 303
                         p = New DealerDirect.CampaignManagement.Programs.CSSR2017.ThankYou.Program
                     Case 304
@@ -118,9 +115,15 @@ Partial Class cm_programs_cssr_dataservice
                     End If
                 Next
 
+                pvFound.Option1 = sOption1
+                pvFound.StyleGroupCode = sStyleGroup
+                pvFound.StyleOptionCode = sStyleOption
+
                 If pvFound IsNot Nothing Then
                     If TypeOf (p) Is DealerDirect.CampaignManagement.Programs.CSSR.WelcomeNew.Program Then
-                        prv = DirectCast(p, DealerDirect.CampaignManagement.Programs.CSSR.WelcomeNew.Program).createPreview(sLanguage, sChannel, pvFound, sOption)
+                        prv = DirectCast(p, DealerDirect.CampaignManagement.Programs.CSSR.WelcomeNew.Program).createPreview(sLanguage, sChannel, pvFound, sOption1)
+                        'ElseIf TypeOf (p) Is DealerDirect.CampaignManagement.Programs.CSSR.ServiceReminders.Program Then
+                        '    prv = DirectCast(p, DealerDirect.CampaignManagement.Programs.CSSR.ServiceReminders.Program).createPreview(sLanguage, sChannel, pvFound) ' (.createPreview(sLanguage, sChannel, pvFound, sOption
                     Else
                         prv = p.createPreview(sLanguage, sChannel, pvFound)
                     End If

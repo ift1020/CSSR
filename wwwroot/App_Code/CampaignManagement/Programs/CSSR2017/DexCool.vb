@@ -1,15 +1,15 @@
-﻿Namespace DealerDirect.CampaignManagement.Programs.CSSR2017.Anniversary
-	Public Module Anniversary
-		Public Const PROGRAM_ID As Integer = 304
-	End Module
+﻿Namespace DealerDirect.CampaignManagement.Programs.CSSR2017.DexCool
+    Public Module DexCool
+        Public Const PROGRAM_ID As Integer = 305
+    End Module
 
-	<Serializable()> _
-	Public Class Program
-		Inherits DealerDirect.CampaignManagement.Programs.AudienceProgram
+    <Serializable()>
+    Public Class Program
+        Inherits DealerDirect.CampaignManagement.Programs.AudienceProgram
 
-		Public Sub New()
-			MyBase.New(PROGRAM_ID)
-		End Sub
+        Public Sub New()
+            MyBase.New(PROGRAM_ID)
+        End Sub
 
         Public Overrides Function createPreview(ByVal language_code As String, ByVal channel_type_code As String, ByVal ptv As DealerDirect.CampaignManagement.Programs.VDP.PreviewTargetVersion) As Programs.VDP.Preview
             Dim cmd As Devart.Data.Oracle.OracleCommand
@@ -20,7 +20,7 @@
             cmd = New Devart.Data.Oracle.OracleCommand
             cmd.Connection = DealerDirect.Data.createUserConnection
             cmd.CommandType = System.Data.CommandType.StoredProcedure
-            cmd.CommandText = "wsdp066_p304.createPreviewTreatment"
+            cmd.CommandText = "wsdp066_p305.createPreviewTreatment"
             cmd.Parameters.Add(New Devart.Data.Oracle.OracleParameter("n_context_id", Devart.Data.Oracle.OracleDbType.Integer)).Direction = System.Data.ParameterDirection.Input
             cmd.Parameters.Add(New Devart.Data.Oracle.OracleParameter("n_sub_campaign_id", Devart.Data.Oracle.OracleDbType.Integer)).Direction = System.Data.ParameterDirection.Input
             cmd.Parameters.Add(New Devart.Data.Oracle.OracleParameter("c_language_cd", Devart.Data.Oracle.OracleDbType.VarChar)).Direction = System.Data.ParameterDirection.Input
@@ -50,38 +50,6 @@
             cmd.Dispose()
 
             Return p
-        End Function
-
-        Public Overrides Function getEstimateData() As System.Data.DataSet
-            Dim cmd As Devart.Data.Oracle.OracleCommand
-            Dim da As Devart.Data.Oracle.OracleDataAdapter
-            Dim ds As System.Data.DataSet
-
-            cmd = New Devart.Data.Oracle.OracleCommand
-            cmd.Connection = Data.createUserConnectionD
-            cmd.CommandType = System.Data.CommandType.StoredProcedure
-            cmd.CommandText = "wsdp066_p304.getEstimateData"
-            cmd.Parameters.Add(New Devart.Data.Oracle.OracleParameter("n_context_id", Devart.Data.Oracle.OracleDbType.Integer)).Direction = System.Data.ParameterDirection.Input
-            cmd.Parameters.Add(New Devart.Data.Oracle.OracleParameter("n_program_id", Devart.Data.Oracle.OracleDbType.Integer)).Direction = System.Data.ParameterDirection.Input
-            cmd.Parameters.Add(New Devart.Data.Oracle.OracleParameter("n_sub_campaign_id", Devart.Data.Oracle.OracleDbType.Integer)).Direction = System.Data.ParameterDirection.Input
-            cmd.Parameters.Add(New Devart.Data.Oracle.OracleParameter("estimate_data", Devart.Data.Oracle.OracleDbType.Cursor)).Direction = System.Data.ParameterDirection.Output
-            cmd.Parameters.Add(New Devart.Data.Oracle.OracleParameter("filter_mappings", Devart.Data.Oracle.OracleDbType.Cursor)).Direction = System.Data.ParameterDirection.Output
-            cmd.Parameters("n_context_id").Value = DealerDirect.Security.CurrentSession.SecurityContext.ID
-            cmd.Parameters("n_program_id").Value = m_ProgramID
-            cmd.Parameters("n_sub_campaign_id").Value = m_SubCampaignID
-
-            da = New Devart.Data.Oracle.OracleDataAdapter(cmd)
-            ds = New System.Data.DataSet
-            da.Fill(ds)
-
-            da.Dispose()
-            cmd.Connection.Close()
-            cmd.Connection.Dispose()
-            cmd.Dispose()
-
-            System.Threading.Thread.Sleep(2)
-
-            Return ds
         End Function
     End Class
 End Namespace

@@ -7,8 +7,10 @@
             </td>
         <td style="padding-right:2px; text-align:right; vertical-align:bottom;" width="50%">
             <div class="sectionTitle" style="font-size:smaller;">
-                Estimates represent average expected weekly contacts and
-                do not account for any seasonal or promotional variability.
+                <% if DealerDirect.Resources.doesStringExist(m_Program.EstimatesTextResourceCode) Then %>
+                <%=DealerDirect.Resources.getString(m_Program.EstimatesTextResourceCode)%>
+                <% end if %>
+               
             </div>
         </td>
     </tr>

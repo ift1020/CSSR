@@ -10,19 +10,20 @@
 		Protected m_ServiceGroups As New Programs.Specialized.SMSP.Services.ServiceGroupCollection
 		Protected m_TireMessagingSettings As String
 
-		Public Sub New()
-			MyBase.New(ServiceReminders.PROGRAM_ID)
-			'Me.loadServices()
-		End Sub
+        Public Sub New()
+            MyBase.New(ServiceReminders.PROGRAM_ID)
+            'Me.loadServices()
+        End Sub
 
+        Public Overrides Property PreviewGeneratorControlPath As String = "~/App_Controls/cm/programs/servicereminders/PreviewGenerator.ascx"
 
-		Public Overrides Function createPreview(ByVal language_code As String, ByVal channel_type_code As String, ByVal ptv As DealerDirect.CampaignManagement.Programs.VDP.PreviewTargetVersion) As Programs.VDP.Preview
+        Public Overrides Function createPreview(ByVal language_code As String, ByVal channel_type_code As String, ByVal ptv As DealerDirect.CampaignManagement.Programs.VDP.PreviewTargetVersion) As Programs.VDP.Preview
 			Dim cmd As Devart.Data.Oracle.OracleCommand
 			Dim p As Programs.VDP.Preview = Nothing
 			Dim nTreatmentID As Integer
 			Dim nTemplateID As Integer
 
-			cmd = New Devart.Data.Oracle.OracleCommand
+            cmd = New Devart.Data.Oracle.OracleCommand
 			cmd.Connection = DealerDirect.Data.createUserConnection
 			cmd.CommandType = System.Data.CommandType.StoredProcedure
 			cmd.CommandText = "wsdp066_p202.createPreviewTreatment"

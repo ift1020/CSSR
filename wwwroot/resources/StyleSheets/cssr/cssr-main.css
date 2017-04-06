@@ -41,9 +41,6 @@ i.uncheck {
 }
 
 #cssr-logo {
-    background: url('/resources/images/cssr/cssr-logo_en_white_180.png') no-repeat;
-    background-size: 150px;
-    height: 30px;
     margin: 0px 35px 9px 70px;
     transition: all .25s ease-in-out;
 }
@@ -96,11 +93,9 @@ i.uncheck {
     min-width: 100px;
     color: #FFF;
     width: 110px;
-    background-color: #01A453 !important;
+    background-color: #01A453;
     margin-left: 30px;
-}
-.activate-button:hover {
-    background-color: #01A453 !important;
+    cursor: pointer;
 }
 
 .tab-option {
